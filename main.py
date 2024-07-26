@@ -81,11 +81,11 @@ if user_prompt := st.chat_input(
     # print("Prompt: ", user_prompt)
     # print("Documents: ", documents[0].page_content.split("\n"))
     # print("------------------------------")
-    response = chain_with_history.invoke(
+    response = chain_with_history.stream(
         {"context": documents[0].page_content, "question": user_prompt},
         {"configurable": {"session_id": "1"}},
     )
 
     with st.chat_message("assistant"):
         st.session_state.messages.append({"role": "assistant", "content": response})
-        st.write(response)
+        st.write_stream(response)
