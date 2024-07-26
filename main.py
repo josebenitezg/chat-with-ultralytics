@@ -8,12 +8,10 @@ from langchain_core.chat_history import (
 from langchain_core.output_parsers import StrOutputParser
 from langchain_core.runnables.history import RunnableWithMessageHistory
 from langchain_openai import ChatOpenAI
-from langchain.globals import set_debug
 
 from database import database
 
 load_dotenv()
-# set_debug(True)
 
 if "store" not in st.session_state:
     st.session_state.store = {}
@@ -78,11 +76,8 @@ if user_prompt := st.chat_input(
         history_messages_key="history",
     )
 
-    # print("Prompt: ", user_prompt)
-    # print("Documents: ", documents[0].page_content.split("\n"))
-    # print("------------------------------")
     response = chain_with_history.stream(
-        {"context": documents[0].page_content, "question": user_prompt},
+        {"context": documents, "question": user_prompt},
         {"configurable": {"session_id": "1"}},
     )
 
