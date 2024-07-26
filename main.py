@@ -81,7 +81,7 @@ if user_prompt := st.chat_input(
     # print("Prompt: ", user_prompt)
     # print("Documents: ", documents[0].page_content.split("\n"))
     # print("------------------------------")
-    response = chain.invoke(
+    response = chain_with_history.invoke(
         {"context": documents[0].page_content, "question": user_prompt},
         {"configurable": {"session_id": "1"}},
     )
